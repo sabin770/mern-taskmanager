@@ -1,28 +1,31 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: Number(process.env.SMTP_PORT) === 465,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
   },
+  connectionTimeout: 10000,
 });
 
-// Verify connection on startup
-transporter.verify((err) => {
-  if (err) console.error('❌ Email service error:', err.message);
-  else console.log('✅ Email service ready');
-});
 
-// rest of file stays exactly the same...
-// ── Helper ────────────────────────────────────────────────────────────────────
 const send = async ({ to, subject, html }) => {
-  await transporter.sendMail({
-    from: `"TaskFlow" <${process.env.SMTP_FROM_ADDRESS}>`,
-    to,
-    subject,
-    html,
-  });
+  try {
+    await transporter.sendMail({
+      from: `"TaskFlow" <${process.env.SMTP_FROM_ADDRESS}>`,
+      to,
+      subject,
+      html,
+    });
+
+    console.log(`✅ Email sent to ${to}`);
+  } catch (error) {
+    console.error(`❌ Email send failed to ${to}:`, error.message);
+    throw error;
+  }
 };
 
 // ── Base template wrapper ─────────────────────────────────────────────────────
