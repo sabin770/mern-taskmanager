@@ -9,8 +9,6 @@ const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 const { startReminderCron } = require('./services/reminderCron');
 
-connectDB(); 
-
 const app = express();
 
 // ── Middleware ────────────────────────────────────────────────────────────────
@@ -29,12 +27,27 @@ app.get('/api/health', (req, res) => res.json({ success: true, message: 'Server 
 app.use((req, res) => res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` }));
 app.use(errorHandler);
 
-// ── Start ─────────────────────────────────────────────────────────────────────
+// ── Start Server ONLY after database connects ────────────────────────────────
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  console.log(`📡 API available at http://localhost:${PORT}/api\n`);
-  startReminderCron();
-});
+
+// ✅ FIX: Wait for database connection before starting server
+const startServer = async () => {
+  try {
+    // Connect to database first
+    await connectDB();
+    
+    // Then start the server
+    app.listen(PORT, () => {
+      console.log(`\n🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+      console.log(`📡 API available at http://localhost:${PORT}/api\n`);
+      startReminderCron();
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
 
 module.exports = app;
