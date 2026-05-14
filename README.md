@@ -7,25 +7,25 @@ A production-ready task management application built with the MERN stack (MongoD
 ## 📸 Screenshots
 
 ### Dashboard View
-![](Screenshots/login.png)
+![](screenshots/login.png)
 
 ### Dashboard View
-![](Screenshots/dashboard.png)
+![](screenshots/dashboard.png)
 
 ### Premium Payment Page
-![](Screenshots/premium-page.png)
+![](screenshots/premium-page.png)
 
 ### Khalti Payment Gateway
-![](Screenshots/khalti-payment.png)
+![](screenshots/khalti-payment.png)
 
 ### Premium Activated Page
-![](Screenshots/premium-activated.png)
+![](screenshots/premium-activated.png)
 
 ### Premium History Page
-![](Screenshots/premium-history-page.png)
+![](screenshots/premium-history-page.png)
 
 ### Email Notification 
-![](Screenshots/email.png)
+![](screenshots/email.png)
 
 
 ---
