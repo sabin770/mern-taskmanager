@@ -6,7 +6,7 @@ A production-ready task management application built with the MERN stack (MongoD
 
 ## 📸 Screenshots
 
-### Dashboard View
+### Auth Page 
 ![](screenshots/login.png)
 
 ### Dashboard View
