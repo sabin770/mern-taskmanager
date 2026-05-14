@@ -10,6 +10,10 @@ export default function Navbar({ onNewTask }) {
     .toUpperCase()
     .slice(0, 2);
 
+  const handlePremiumClick = () => {
+    window.location.href = 'http://localhost:3000/premium';
+  };
+
   return (
     <nav style={styles.nav}>
       <div style={styles.logo}>
@@ -18,6 +22,10 @@ export default function Navbar({ onNewTask }) {
       </div>
 
       <div style={styles.right}>
+        <button className="btn btn-premium" onClick={handlePremiumClick} style={styles.premiumBtn}>
+          ⭐ Premium
+        </button>
+
         <button className="btn btn-primary" onClick={onNewTask} style={styles.newBtn}>
           <span style={{ fontSize: '1.1rem', lineHeight: 1 }}>+</span>
           New Task
@@ -74,7 +82,17 @@ const styles = {
   right: {
     display: 'flex',
     alignItems: 'center',
-    gap: '16px',
+    gap: '12px',
+  },
+  premiumBtn: {
+    padding: '8px 16px',
+    background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+    border: 'none',
+    color: 'white',
+    fontWeight: '600',
+    cursor: 'pointer',
+    borderRadius: '8px',
+    fontSize: '0.875rem',
   },
   newBtn: {
     padding: '8px 16px',
