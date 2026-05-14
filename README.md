@@ -1,9 +1,8 @@
-```markdown
 # 🚀 TaskFlow — Full-Stack MERN Task Manager with Premium Features
 
 A production-ready task management application built with the MERN stack (MongoDB, Express, React, Node.js) featuring **Khalti payment integration** and **premium user benefits**.
 
----
+
 
 ## 📸 Screenshots
 
@@ -33,7 +32,7 @@ A production-ready task management application built with the MERN stack (MongoD
 
 ## 📁 Project Structure
 
-
+```
 mern-taskmanager/
 ├── backend/
 │   ├── config/
@@ -93,7 +92,7 @@ mern-taskmanager/
 │
 ├── package.json                      # Root — runs both servers
 └── README.md
-
+```
 
 ---
 
@@ -293,7 +292,7 @@ MIT
 ---
 
 ## 🙏 Acknowledgments
-
+```
 - Khalti for payment gateway
 - MongoDB for database
 - All open-source contributors
