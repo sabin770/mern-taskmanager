@@ -10,32 +10,32 @@ A production-ready task management application built with the MERN stack (MongoD
 ## 📸 Screenshots
 
 ### Dashboard View
-![Login](screenshots/login.png)
+![](Screenshots/login.png)
 
 ### Dashboard View
-![Dashboard](screenshots/dashboard.png)
+![](Screenshots/dashboard.png)
 
 ### Premium Payment Page
-![Premium Page](screenshots/premium-page.png)
+![](Screenshots/premium-page.png)
 
 ### Khalti Payment Gateway
-![Khalti Payment](screenshots/khalti-payment.png)
+![](Screenshots/khalti-payment.png)
 
 ### Premium Activated Page
-![Premium Activated](screenshots/premium-activated.png)
+![](Screenshots/premium-activated.png)
 
 ### Premium History Page
-![Premium Page](screenshots/premium-history-page.png)
+![](Screenshots/premium-history-page.png)
 
 ### Email Notification 
-![Email Notification](screenshots/email.png)
+![](Screenshots/email.png)
 
 
 ---
 
 ## 📁 Project Structure
 
-```
+
 mern-taskmanager/
 ├── backend/
 │   ├── config/
@@ -95,7 +95,7 @@ mern-taskmanager/
 │
 ├── package.json                      # Root — runs both servers
 └── README.md
-```
+
 
 ---
 
