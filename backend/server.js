@@ -1,6 +1,4 @@
-const dotenv = require('dotenv');
-const path = require('path');
-dotenv.config({ path: path.join(__dirname, '.env') });
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
@@ -11,11 +9,25 @@ const { startReminderCron } = require('./services/reminderCron');
 
 const app = express();
 
-// ── Middleware ────────────────────────────────────────────────────────────────
+// ── CORS ──────────────────────────────────────────────────────────────────────
+const allowedOrigins = [
+  'https://mern-taskmanager-git-main-sabin770s-projects.vercel.app',
+  'https://mern-taskmanager-k1x57lt18-sabin770s-projects.vercel.app',
+  'http://localhost:3000',
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
+
+// ── Middleware ────────────────────────────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
@@ -31,12 +43,11 @@ app.use((req, res) => res.status(404).json({ success: false, message: `Route ${r
 app.use(errorHandler);
 
 // ── Start ─────────────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 const startServer = async () => {
   try {
     await connectDB();
-
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`\n🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
       console.log(`📡 API available at http://0.0.0.0:${PORT}/api\n`);
