@@ -12,7 +12,10 @@ const { startReminderCron } = require('./services/reminderCron');
 const app = express();
 
 // ── Middleware ────────────────────────────────────────────────────────────────
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
@@ -27,19 +30,16 @@ app.get('/api/health', (req, res) => res.json({ success: true, message: 'Server 
 app.use((req, res) => res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` }));
 app.use(errorHandler);
 
-// ── Start Server ONLY after database connects ────────────────────────────────
+// ── Start ─────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
-// ✅ FIX: Wait for database connection before starting server
 const startServer = async () => {
   try {
-    // Connect to database first
     await connectDB();
-    
-    // Then start the server
-    app.listen(PORT, () => {
+
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`\n🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-      console.log(`📡 API available at http://localhost:${PORT}/api\n`);
+      console.log(`📡 API available at http://0.0.0.0:${PORT}/api\n`);
       startReminderCron();
     });
   } catch (error) {
