@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar({ onNewTask }) {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const initials = user?.name
     ?.split(' ')
@@ -9,10 +11,6 @@ export default function Navbar({ onNewTask }) {
     .join('')
     .toUpperCase()
     .slice(0, 2);
-
-  const handlePremiumClick = () => {
-    window.location.href = 'http://localhost:3000/premium';
-  };
 
   return (
     <nav style={styles.nav}>
@@ -22,7 +20,7 @@ export default function Navbar({ onNewTask }) {
       </div>
 
       <div style={styles.right}>
-        <button className="btn btn-premium" onClick={handlePremiumClick} style={styles.premiumBtn}>
+        <button className="btn btn-premium" onClick={() => navigate('/premium')} style={styles.premiumBtn}>
           ⭐ Premium
         </button>
 
