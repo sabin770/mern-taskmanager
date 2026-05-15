@@ -10,19 +10,15 @@ const { startReminderCron } = require('./services/reminderCron');
 const app = express();
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
-const allowedOrigins = [
-  'https://mern-taskmanager-git-main-sabin770s-projects.vercel.app',
-  'https://mern-taskmanager-k1x57lt18-sabin770s-projects.vercel.app',
-  'http://localhost:3000',
-];
-
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    // Allow no origin (mobile, curl, Postman)
+    if (!origin) return callback(null, true);
+    // Allow any vercel.app subdomain + localhost
+    if (origin.endsWith('.vercel.app') || origin.startsWith('http://localhost')) {
+      return callback(null, true);
     }
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
 }));
