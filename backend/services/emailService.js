@@ -1,26 +1,15 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: Number(process.env.SMTP_PORT) === 465,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-  connectionTimeout: 10000,
-});
-
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const send = async ({ to, subject, html }) => {
   try {
-    await transporter.sendMail({
-      from: `"TaskFlow" <${process.env.SMTP_FROM_ADDRESS}>`,
+    await resend.emails.send({
+      from: 'TaskFlow <onboarding@resend.dev>',
       to,
       subject,
       html,
     });
-
     console.log(`✅ Email sent to ${to}`);
   } catch (error) {
     console.error(`❌ Email send failed to ${to}:`, error.message);
@@ -41,7 +30,6 @@ const wrap = (content) => `
     .container { max-width: 580px; margin: 40px auto; background: #161920; border: 1px solid #2a2f45; border-radius: 16px; overflow: hidden; }
     .header { background: linear-gradient(135deg, #6c63ff, #8b85ff); padding: 32px; text-align: center; }
     .logo { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-    .logo span { opacity: 0.7; }
     .body { padding: 32px; }
     h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
     p { color: #9ca3af; line-height: 1.6; margin-bottom: 16px; font-size: 15px; }
@@ -85,7 +73,6 @@ const sendPurchaseReceipt = async ({ user, payment }) => {
   const html = wrap(`
     <h2>🎉 Welcome to Premium, ${user.name}!</h2>
     <p>Your payment was successful. Here's your receipt:</p>
-
     <div class="card">
       <div class="row"><span class="label">Plan</span><span class="value">${planLabel} <span class="badge">Premium</span></span></div>
       <div class="row"><span class="label">Amount Paid</span><span class="value">NPR ${payment.amountNPR}</span></div>
@@ -94,14 +81,12 @@ const sendPurchaseReceipt = async ({ user, payment }) => {
       <div class="row"><span class="label">Date</span><span class="value">${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span></div>
       <div class="row"><span class="label">Valid Until</span><span class="value">${expiry.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span></div>
     </div>
-
     <h2 style="margin-top:24px">✨ What you unlocked</h2>
     <div class="card">
       <div class="row"><span class="label">📧 Email Reminders</span><span class="value" style="color:#22c55e">✓ Active</span></div>
       <div class="row"><span class="label">⏰ Due Date Alerts</span><span class="value" style="color:#22c55e">✓ Active</span></div>
       <div class="row"><span class="label">📊 Priority Notifications</span><span class="value" style="color:#22c55e">✓ Active</span></div>
     </div>
-
     <a href="${process.env.CLIENT_URL}" class="btn">Go to Dashboard →</a>
   `);
 
@@ -127,20 +112,16 @@ const sendTaskReminder = async ({ user, tasks }) => {
   const html = wrap(`
     <h2>⏰ Task Reminder</h2>
     <p>Hi <span class="highlight">${user.name}</span>, here's a heads-up on your pending tasks:</p>
-
     ${overdueList.length > 0 ? `
       <h3 style="color:#ef4444;margin:20px 0 8px;font-size:16px">🚨 Overdue (${overdueList.length})</h3>
       ${overdueList.map(renderTask).join('')}
     ` : ''}
-
     ${dueSoonList.length > 0 ? `
       <h3 style="color:#f59e0b;margin:20px 0 8px;font-size:16px">⚠️ Due Soon (${dueSoonList.length})</h3>
       ${dueSoonList.map(renderTask).join('')}
     ` : ''}
-
     <a href="${process.env.CLIENT_URL}" class="btn" style="margin-top:24px">View All Tasks →</a>
-    <p style="margin-top:16px;font-size:13px">You're receiving this because you have TaskFlow Premium. 
-    You can update reminder settings in your account.</p>
+    <p style="margin-top:16px;font-size:13px">You're receiving this because you have TaskFlow Premium.</p>
   `);
 
   await send({
