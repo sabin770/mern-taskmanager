@@ -1,14 +1,14 @@
-https://taskmanagernp-ashen.vercel.app/login
+# ✦ TaskFlow — Full-Stack MERN Task Manager
 
-# 🚀 TaskFlow — Full-Stack MERN Task Manager with Premium Features
+**Live Demo:** https://taskmanagernp-ashen.vercel.app
 
-A production-ready task management application built with the MERN stack (MongoDB, Express, React, Node.js) featuring **Khalti payment integration** and **premium user benefits**.
+A production-ready task management application built with the MERN stack (MongoDB, Express, React, Node.js) featuring **Khalti payment integration**, **premium subscriptions**, and **automated email reminders via Resend**.
 
-
+---
 
 ## 📸 Screenshots
 
-### Auth Page 
+### Auth Page
 ![](screenshots/login.png)
 
 ### Dashboard View
@@ -20,15 +20,31 @@ A production-ready task management application built with the MERN stack (MongoD
 ### Khalti Payment Gateway
 ![](screenshots/khalti-payment.png)
 
-### Premium Activated Page
+### Premium Activated
 ![](screenshots/premium-activated.png)
 
-### Premium History Page
+### Payment History
 ![](screenshots/premium-history-page.png)
 
-### Email Notification 
+### Email Notification
 ![](screenshots/email.png)
 
+---
+
+## 🌐 Deployment Stack
+
+| Service | Platform | Purpose |
+|---------|----------|---------|
+| Frontend | **Vercel** | React app hosting, free forever |
+| Backend | **Railway** | Node/Express API, free tier |
+| Database | **MongoDB Atlas** | Cloud database, 512MB free |
+| Email | **Resend** | Transactional emails, 100/day free |
+
+### Live URLs
+```
+Frontend:  https://taskmanagernp-ashen.vercel.app
+Backend:   https://practical-appreciation-production.up.railway.app
+```
 
 ---
 
@@ -51,10 +67,10 @@ mern-taskmanager/
 │   │   ├── tasks.js                 # Full CRUD for tasks
 │   │   └── payment.js               # Khalti payment routes
 │   ├── services/
-│   │   ├── emailService.js          # Email notifications
+│   │   ├── emailService.js          # Resend email notifications
 │   │   ├── khaltiService.js         # Khalti API integration
-│   │   └── reminderCron.js          # Task reminder cron jobs
-│   ├── .env.example                 # Environment variable template
+│   │   └── reminderCron.js          # Automated task reminder cron
+│   ├── .env.example
 │   ├── package.json
 │   └── server.js                    # Express app entry point
 │
@@ -63,36 +79,31 @@ mern-taskmanager/
 │   │   └── index.html
 │   └── src/
 │       ├── components/
-│       │   ├── Navbar.js            # Top navigation bar
-│       │   ├── StatsBar.js          # Task statistics & progress
-│       │   ├── Filters.js           # Search, filter, sort controls
-│       │   ├── TaskCard.js          # Individual task card
-│       │   ├── TaskModal.js         # Create/Edit task modal
-│       │   ├── PrivateRoute.js      # Auth-protected route wrapper
-│       │   └── PremiumBadge.js      # Premium user badge component
+│       │   ├── Navbar.js
+│       │   ├── StatsBar.js
+│       │   ├── Filters.js
+│       │   ├── TaskCard.js
+│       │   ├── TaskModal.js
+│       │   ├── PrivateRoute.js
+│       │   └── PremiumBadge.js
 │       ├── context/
-│       │   └── AuthContext.js       # Auth state management
+│       │   └── AuthContext.js
 │       ├── hooks/
-│       │   ├── useTasks.js          # Task CRUD custom hook
-│       │   └── usePremium.js        # Premium features hook
+│       │   ├── useTasks.js
+│       │   └── usePremium.js
 │       ├── pages/
-│       │   ├── AuthPage.js          # Login / Register page
-│       │   ├── Dashboard.js         # Main task dashboard
-│       │   ├── PremiumPage.js       # Premium subscription page
-│       │   └── KhaltiCallback.js    # Payment verification callback
+│       │   ├── AuthPage.js
+│       │   ├── Dashboard.js
+│       │   ├── PremiumPage.js
+│       │   └── KhaltiCallback.js
 │       ├── utils/
-│       │   └── api.js               # Axios instance + interceptors
-│       ├── App.js                   # Router + global providers
-│       ├── index.js                 # React entry point
-│       └── index.css                # Global styles & design tokens
+│       │   └── api.js
+│       ├── App.js
+│       ├── index.js
+│       └── index.css
 │
-├── screenshots/                      # 📸 Add your images here
-│   ├── dashboard.png
-│   ├── premium-page.png
-│   ├── khalti-payment.png
-│   └── task-modal.png
-│
-├── package.json                      # Root — runs both servers
+├── screenshots/
+├── package.json
 └── README.md
 ```
 
@@ -100,48 +111,44 @@ mern-taskmanager/
 
 ## ✨ Features
 
-### Backend Features
+### Backend
 - **JWT Authentication** — Register, login, protected routes
 - **Password Hashing** — bcryptjs with salt rounds
 - **Full Task CRUD** — Create, Read, Update, Delete tasks
 - **Filtering & Search** — Filter by status, priority; search by title/description
 - **Task Stats** — Per-user counts by status
-- **Khalti Payment Integration** — Premium subscription with payment verification
-- **Email Notifications** — Welcome emails, payment confirmations, task reminders
-- **Cron Jobs** — Automated task reminders via email
-- **Payment Tracking** — Store all payment transactions
-- **Premium Features** — Unlock exclusive features after payment
+- **Khalti Payment Integration** — Two-step payment verification
+- **Email Notifications** — Welcome emails, payment receipts, task reminders via Resend
+- **Cron Jobs** — Automated daily reminders at 8:00 AM
+- **Payment Tracking** — Full transaction history in MongoDB
 
-### Premium Features (After Payment)
-- 🎯 **Unlimited Tasks** — No task creation limits
-- 📊 **Advanced Analytics** — Detailed productivity insights
-- 🔔 **Email Reminders** — Automatic task deadline reminders
-- 🏷️ **Priority Support** — Faster email responses
-- ✨ **Premium Badge** — Visible badge on profile
+### Premium Features
+- 🔔 **Email Reminders** — Daily task deadline reminders at 8 AM
+- 📧 **Payment Receipt** — Beautiful HTML receipt via email
+- 👑 **Premium Badge** — Visible badge in navbar
+- ⚙️ **Notification Settings** — Control reminder frequency
 
-### Frontend Features
-- **Auth Flow** — Login/Register with JWT stored in localStorage
-- **Dashboard** — Grid of task cards with live stats
-- **Filters** — Status tabs, priority dropdown, sort, search
-- **Task Modal** — Create/Edit with full form validation
-- **Progress Bar** — Visual completion percentage
-- **Toast Notifications** — Success/error feedback
-- **Premium Page** — View premium plans and payment options
-- **Khalti Integration** — Seamless payment gateway integration
-- **Responsive** — Works on desktop and mobile
+### Frontend
+- Auth flow with JWT stored in localStorage
+- Dashboard with task grid and live stats
+- Status tabs, priority filter, search and sort
+- Create/Edit task modal
+- Progress bar showing completion %
+- Toast notifications
+- Premium upgrade page with Khalti payment
+- Responsive design
 
 ---
 
-## 🛠️ Setup & Installation
+## 🛠️ Local Setup
 
 ### Prerequisites
 - Node.js v18+
-- MongoDB (local) or [MongoDB Atlas](https://cloud.mongodb.com)
-- Khalti Merchant Account (for payment integration)
+- MongoDB Community Server or Atlas account
 
 ### 1. Clone & Install
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/sabin770/mern-taskmanager.git
 cd mern-taskmanager
 npm run install-all
 ```
@@ -152,36 +159,91 @@ cd backend
 cp .env.example .env
 ```
 
-Edit `.env`:
+Fill in `.env`:
 ```env
+NODE_ENV=development
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/mern_taskmanager
-JWT_SECRET=your_long_random_secret_here
+
+MONGO_URI=mongodb://127.0.0.1:27017/mern_taskmanager
+
+JWT_SECRET=your_jwt_secret_here
 JWT_EXPIRE=30d
 
-# Khalti Payment Keys
-KHALTI_SECRET_KEY=test_secret_key_your_key_here
-KHALTI_PUBLIC_KEY=test_public_key_your_key_here
+KHALTI_LIVE_SECRET_KEY=your_khalti_key
+KHALTI_URL=https://dev.khalti.com/api/v2/
+KHALTI_AFTER_PAYMENT_URL=http://localhost:3000/khalti-payment
 
-# Email Configuration (for reminders)
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-app-password
+# For local development use Gmail SMTP
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your@gmail.com
+SMTP_PASSWORD=your_app_password
+SMTP_FROM_ADDRESS=your@gmail.com
+
+# For production use Resend
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxx
+
+CLIENT_URL=http://localhost:3000
 ```
 
 ### 3. Run Development Servers
-From the root directory:
 ```bash
 npm run dev
 ```
-This starts:
-- **Backend** on `http://localhost:5000`
-- **Frontend** on `http://localhost:3000`
+- Backend → `http://localhost:5000`
+- Frontend → `http://localhost:3000`
 
-### 4. Test Payment (Khalti Test Mode)
-Use Khalti test credentials:
-- **Phone:** 9800000005
-- **Password:** 1111 
-- **OTP:** 98765
+### 4. Test Khalti Payment
+```
+Mobile: 9800000000
+MPIN:   1111
+OTP:    987654
+```
+
+---
+
+## 🚀 Production Deployment
+
+### Database — MongoDB Atlas (Free)
+1. Create account at [cloud.mongodb.com](https://cloud.mongodb.com)
+2. Create a free cluster
+3. Go to **Network Access** → Add `0.0.0.0/0`
+4. Copy the connection string
+
+### Backend — Railway (Free)
+1. Go to [railway.app](https://railway.app) → sign up with GitHub
+2. New Project → Deploy from GitHub → select repo
+3. Set **Root Directory** to `backend`
+4. Add environment variables in **Variables** tab:
+```
+NODE_ENV=production
+PORT=8080
+MONGO_URI=your_atlas_uri
+JWT_SECRET=your_secret
+JWT_EXPIRE=30d
+KHALTI_LIVE_SECRET_KEY=your_key
+KHALTI_URL=https://dev.khalti.com/api/v2/
+KHALTI_AFTER_PAYMENT_URL=https://your-vercel-url.vercel.app/khalti-payment
+RESEND_API_KEY=your_resend_key
+CLIENT_URL=https://your-vercel-url.vercel.app
+```
+5. Deploy — Railway auto-detects Node.js
+
+### Frontend — Vercel (Free)
+1. Go to [vercel.com](https://vercel.com) → sign up with GitHub
+2. Import your repo
+3. Set **Root Directory** to `frontend`
+4. Add environment variable:
+```
+REACT_APP_API_URL=https://your-railway-url.railway.app/api
+```
+5. Deploy
+
+### Email — Resend (Free, 100 emails/day)
+1. Go to [resend.com](https://resend.com) → sign up free
+2. Create API Key
+3. Add `RESEND_API_KEY` to Railway variables
+4. Emails send from `onboarding@resend.dev` on free plan
 
 ---
 
@@ -209,10 +271,12 @@ Use Khalti test credentials:
 ### Payment
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
-| POST | `/api/payment/initiate` | Initiate Khalti payment | ✅ |
-| GET | `/api/payment/verify` | Verify payment | ✅ |
-| GET | `/api/payment/history` | Get payment history | ✅ |
-| GET | `/api/payment/premium-status` | Check premium status | ✅ |
+| GET | `/api/payment/plans` | Get available plans | ✅ |
+| POST | `/api/payment/initiate` | Start Khalti payment | ✅ |
+| POST | `/api/payment/verify` | Verify after redirect | ✅ |
+| GET | `/api/payment/history` | Payment history | ✅ |
+| GET | `/api/payment/status` | Premium status | ✅ |
+| PUT | `/api/payment/notifications` | Update preferences | ✅ |
 
 ### Query Parameters (GET /api/tasks)
 ```
@@ -226,22 +290,42 @@ Use Khalti test credentials:
 
 ## 💳 Payment Flow
 
-1. User clicks "Upgrade to Premium" on Dashboard
-2. Redirected to Premium Page with plan options
-3. User clicks "Pay with Khalti"
-4. Khalti payment modal opens
-5. User completes payment (test: 9800000005)
-6. Callback verifies payment and updates user premium status
-7. User receives premium badge and features are unlocked
+```
+User clicks "Upgrade to Premium"
+    ↓
+Choose Monthly (NPR 299) or Yearly (NPR 1999)
+    ↓
+Backend calls Khalti API → gets payment URL
+    ↓
+User redirected to Khalti payment page
+    ↓
+User completes payment
+    ↓
+Khalti redirects back with pidx token
+    ↓
+Backend verifies pidx with Khalti API
+    ↓
+MongoDB updated: isPremium = true
+    ↓
+Receipt email sent via Resend
+    ↓
+User sees 👑 Premium badge
+```
 
 ---
 
-## 📧 Email Reminders (Cron Jobs)
+## 📧 Email System (Resend)
 
-The system automatically sends email reminders for tasks:
-- **Daily at 8:00 AM** — Tasks due today
-- **Hourly** — Tasks due in next hour
-- **Premium users only** — This feature requires premium subscription
+Three automated emails:
+
+| Email | Trigger | Content |
+|-------|---------|---------|
+| Welcome | User registers | Account confirmation + getting started |
+| Receipt | Successful payment | Transaction ID, plan details, expiry |
+| Reminder | Daily cron 8:00 AM | Overdue tasks + due-soon tasks list |
+
+> **Why Resend instead of Gmail SMTP?**
+> Railway and most cloud platforms block outbound SMTP ports (587/465) to prevent spam. Resend uses HTTPS port 443 which is never blocked, making it reliable in production.
 
 ---
 
@@ -253,30 +337,29 @@ The system automatically sends email reminders for tasks:
 | Backend | Node.js + Express |
 | Auth | JWT + bcryptjs |
 | Validation | express-validator |
-| Payments | Khalti API |
-| Emails | Nodemailer |
+| Payments | Khalti API v2 |
+| Emails | Resend (production) / Nodemailer (local) |
 | Cron Jobs | node-cron |
 | Frontend | React 18 |
 | Routing | React Router v6 |
 | HTTP Client | Axios |
 | Notifications | react-hot-toast |
 | Dates | date-fns |
-| Fonts | Google Fonts (Syne + DM Sans) |
+| Hosting (Frontend) | Vercel |
+| Hosting (Backend) | Railway |
+| Database (Cloud) | MongoDB Atlas |
 
 ---
 
-## 🚀 Deployment
+## 🐛 Known Issues & Solutions
 
-### Backend (Railway / Render / Heroku)
-1. Set environment variables (`MONGO_URI`, `JWT_SECRET`, `KHALTI_SECRET_KEY`, etc.)
-2. Set start command: `node server.js`
-
-### Frontend (Vercel / Netlify)
-1. Build: `npm run build`
-2. Set `REACT_APP_API_URL=https://your-backend-url.com/api`
-
----
-
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| IPv6 DNS error | Node.js resolves localhost to ::1 | Use `127.0.0.1` directly |
+| Atlas SRV DNS block | ISP blocks SRV lookups | Use direct connection string or local MongoDB |
+| Email timeout in production | Railway blocks SMTP ports | Switched to Resend (HTTPS) |
+| CORS error on Vercel | Wrong CLIENT_URL in Railway | Allow all `*.vercel.app` in CORS config |
+| dotenv not loading | Loaded after require() calls | Move `dotenv.config()` to first line |
 
 ---
 
@@ -294,8 +377,10 @@ MIT
 ---
 
 ## 🙏 Acknowledgments
-```
-- Khalti for payment gateway
-- MongoDB for database
+
+- [Khalti](https://khalti.com) — Nepal's leading payment gateway
+- [Resend](https://resend.com) — Modern email API
+- [Railway](https://railway.app) — Simple cloud deployments
+- [Vercel](https://vercel.com) — Frontend hosting
+- [MongoDB Atlas](https://cloud.mongodb.com) — Cloud database
 - All open-source contributors
-```
